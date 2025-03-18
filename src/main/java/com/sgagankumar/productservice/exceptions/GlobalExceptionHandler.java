@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -20,6 +21,15 @@ public class GlobalExceptionHandler
         errorResponseDto.setStatus("Error");
         errorResponseDto.setMessage(productNotFoundException.getMessage());
         return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponseDto> handleMethodArgumentNotValid(MethodArgumentNotValidException methodArgumentNotValidException)
+    {
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto();
+        errorResponseDto.setStatus("Invalid Argument");
+        errorResponseDto.setMessage(methodArgumentNotValidException.getMessage());
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
