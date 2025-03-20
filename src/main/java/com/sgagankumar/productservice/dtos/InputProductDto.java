@@ -10,15 +10,15 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class CreateProductDto
+public class InputProductDto
 {
     @NotBlank(message = ValidationMessages.NAME_REQUIRED)
     private String name;
     private String description;
     @NotNull(message = ValidationMessages.PRICE_REQUIRED)
     @Min(value = 1, message = ValidationMessages.PRICE_INVALID)
-    private double price;
-    @Pattern(regexp = "^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([\\/\\w .-]*)*\\/?$",
+    private Double price;
+    @Pattern(regexp = "^(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?$",
             message = ValidationMessages.IMAGE_URL_INVALID)
     private String imageUrl;
     @NotBlank(message = ValidationMessages.CATEGORY_NAME_REQUIRED)
