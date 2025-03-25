@@ -41,20 +41,20 @@ public class ProductController
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductResponseDto> updateProduct(@PathVariable("id") long id, @RequestBody PatchProductDto productDto) throws ProductNotFoundException, ProductDeletedException {
+    public ResponseEntity<ProductResponseDto> updateProduct(@PathVariable("id") long id, @RequestBody InputProductDto productDto) throws ProductNotFoundException, ProductDeletedException {
         Product product = productService.updateProductById(id, productDto.getName(), productDto.getDescription(), productDto.getPrice(), productDto.getImageUrl(), productDto.getCategoryName());
         return new ResponseEntity<>(ProductResponseDto.from(product), HttpStatus.OK);
     }
 
-    @PatchMapping("/{id")
-    public ResponseEntity<ProductResponseDto> patchProduct(@PathVariable("id") long id, @RequestBody InputProductDto productDto) throws ProductNotFoundException, ProductDeletedException {
+    @PatchMapping("/{id}")
+    public ResponseEntity<ProductResponseDto> patchProduct(@PathVariable("id") long id, @RequestBody PatchProductDto productDto) throws ProductNotFoundException, ProductDeletedException {
         Product product = productService.patchProductById(id, productDto.getName(), productDto.getDescription(), productDto.getPrice(), productDto.getImageUrl(), productDto.getCategoryName());
         return new ResponseEntity<>(ProductResponseDto.from(product), HttpStatus.OK);
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable("id") long id) throws ProductNotFoundException {
         productService.deleteProductById(id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

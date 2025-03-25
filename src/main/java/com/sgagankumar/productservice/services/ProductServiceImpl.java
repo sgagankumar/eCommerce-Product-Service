@@ -47,8 +47,6 @@ public class ProductServiceImpl implements ProductService
         product.setPrice(price);
         product.setImageUrl(imageurl);
         product.setActive(true);
-        product.setCreatedAt(Date.from(Instant.now()));
-        product.setUpdatedAt(Date.from(Instant.now()));
         product.setCategory(getCategory(category));
         return productRepository.save(product);
     }
@@ -66,8 +64,6 @@ public class ProductServiceImpl implements ProductService
         product.setDescription(description);
         product.setPrice(price);
         product.setImageUrl(imageurl);
-        product.setCreatedAt(productFromDB.get().getCreatedAt());
-        product.setUpdatedAt(Date.from(Instant.now()));
         product.setCategory(getCategory(category));
         return productRepository.save(product);
     }
