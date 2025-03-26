@@ -58,7 +58,7 @@ public class ProductServiceImpl implements ProductService
             throw new ProductNotFoundException("No details present for the product id : " + id);
         if (!productFromDB.get().isActive())
             throw new ProductDeletedException("Product with product id " + id + " no longer active.");
-        Product product = new Product();
+        Product product = productFromDB.get();
         product.setId(id);
         product.setName(name);
         product.setDescription(description);
@@ -84,8 +84,6 @@ public class ProductServiceImpl implements ProductService
             product.setPrice(price);
         if (imageurl!=null && !imageurl.isBlank())
             product.setImageUrl(imageurl);
-        product.setCreatedAt(productFromDB.get().getCreatedAt());
-        product.setUpdatedAt(Date.from(Instant.now()));
         product.setCategory(getCategory(category));
         return productRepository.save(product);
     }
@@ -106,8 +104,6 @@ public class ProductServiceImpl implements ProductService
         Category newCategory = new Category();
         newCategory.setName(categoryName);
         newCategory.setActive(true);
-        newCategory.setCreatedAt(Date.from(Instant.now()));
-        newCategory.setUpdatedAt(Date.from(Instant.now()));
         return categoryRepository.save(newCategory);
     }
 }
