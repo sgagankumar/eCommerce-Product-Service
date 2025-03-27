@@ -7,12 +7,15 @@ import com.sgagankumar.productservice.models.Product;
 import com.sgagankumar.productservice.services.ProductService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
 
@@ -20,10 +23,14 @@ import static com.sgagankumar.productservice.utils.testDataFactory.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest
 class ProductControllerTest
 {
-    ProductService productService = Mockito.mock(ProductService.class);
-    ProductController productController = new ProductController(productService);
+    @MockitoBean
+    ProductService productService;
+
+    @Autowired
+    ProductController productController;
 
     @Test
     public void testGetProductByIdReturnsProductResponseDto() throws ProductNotFoundException{

@@ -15,12 +15,17 @@ public class testDataFactory
         product.setDescription("Product Description");
         product.setImageUrl("https://example.com/image_url");
         product.setPrice(100.0);
+        product.setActive(true);
+        product.setCategory(generateCategory());
+        return product;
+    }
 
+    public static Category generateCategory(){
         Category category = new Category();
         category.setId(2L);
         category.setName("Category 2");
-        product.setCategory(category);
-        return product;
+        category.setActive(true);
+        return category;
     }
 
     public static InputProductDto generateInputProductDto()

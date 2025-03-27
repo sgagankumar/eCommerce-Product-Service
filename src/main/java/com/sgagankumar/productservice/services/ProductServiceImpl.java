@@ -84,7 +84,8 @@ public class ProductServiceImpl implements ProductService
             product.setPrice(price);
         if (imageurl!=null && !imageurl.isBlank())
             product.setImageUrl(imageurl);
-        product.setCategory(getCategory(category));
+        if (category!=null && !category.isBlank())
+            product.setCategory(getCategory(category));
         return productRepository.save(product);
     }
 
